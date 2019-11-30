@@ -32,9 +32,9 @@ var FourierImageAnalysis = (function() {
       loadImage('circle.png');
     });
 
-    $s('#draw-grace-btn').addEventListener('click', function() {
-      loadImage('grace.png');
-    });
+//    $s('#draw-grace-btn').addEventListener('click', function() {
+//     loadImage('grace.png');
+//    });
 
     $s('#draw-img-btn').addEventListener('click', function() {
       loadImage($s('#img-url').value);
