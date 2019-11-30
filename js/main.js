@@ -64,9 +64,8 @@ var FourierImageAnalysis = (function() {
  
       // placed in a callback so the UI has a chance to update
       disableButtons(reconstructAction);
-    });
- 
-    $s('#difference-btn').addEventListener('click', function() {
+      
+      //FROM DIFFERENCE:
       var start = +new Date();
  
       if (!h_()) {
@@ -77,6 +76,17 @@ var FourierImageAnalysis = (function() {
       disableButtons(differenceAction);
     });
  
+    //$s('#difference-btn').addEventListener('click', function() {
+    //  var start = +new Date();
+   //
+    //  if (!h_()) {
+    //    return alert('You haven\'t reconstructed an image yet.');
+     // }
+ 
+      // placed in a callback so the UI has a chance to update
+      //disableButtons(differenceAction);
+   // });
+    
     // initialize the working variables
     canvases = [], ctxs = [];
     h = $h = h_ = function() { return false; };
