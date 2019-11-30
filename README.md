@@ -3,7 +3,7 @@ JS Fourier Image Analysis
 
 This is a web app that computes the 2D Fourier transforms (FTs) of images. After a FT is computed, an image is generated representing the magnitudes of each of the constituent sinusoids.
 
-Check out a live demo at: http://GeekLogan.github.io/JS-Fourier-Image-Analysis/
+Check out a live demo at: https://geeklogan.github.io/JS-Fourier-Image-Analysis/
 
 Low frequencies are in the center of this image, per usual. Entering a value in the "Low pass radius" box removes all sinusoids that are more than that many pixels away from the center: those with high frequency. Setting the "High pass radius" removes the sinusoids that are within the specified number of pixels. If you enter both a low and high pass radius, a band filter will be applied. That is, only sinusoids between the low and high radii are kept.
 
