@@ -404,7 +404,8 @@ function addClick(x, y, dragging)
           context.lineWidth = 5;
 	  
 	  context.beginPath();
-	  context.moveTo(clickX[clickX.length-1-1], clickY[clickX.length-1-1]);
+	  i = clickX.length-1;
+	  context.moveTo(clickX[i-1], clickY[i-1]);
 	  context.lineTo(clickX[i], clickY[i]);
           context.closePath();
           context.stroke();
