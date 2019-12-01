@@ -154,6 +154,8 @@ var FourierImageAnalysis = (function() {
     ); // high pass radius
     Fourier.filter(h_hats, dims, lowPassRadius, highPassRadius);
     */
+	  
+
  
     // store them in a nice function to match the math
     $h = function(k, l) {
@@ -164,9 +166,7 @@ var FourierImageAnalysis = (function() {
     };
  
     // draw the pixels
-    var currImageData = ctxs[1].getImageData(
-      0, 0, dims[0], dims[1]
-    );
+    var currImageData = ctxs[1].getImageData( 0, 0, dims[0], dims[1] );
     var logOfMaxMag = Math.log(cc*maxMagnitude+1);
     for (var k = 0; k < dims[1]; k++) {
       for (var l = 0; l < dims[0]; l++) {
@@ -187,6 +187,20 @@ var FourierImageAnalysis = (function() {
     // compute the h prime values
     var h_primes = [];
     var h_hats = $h();
+	  
+    redraw(false);
+    var currImageData = ctxs[1].getImageData( 0, 0, dims[0], dims[1] );
+    for (var k = 0; k < dims[1]; k++) {
+      for (var l = 0; l < dims[0]; l++) {
+	 var idxInPixels = 4*(dims[0]*k + l); // range offset
+	 if( currImageData[idxInPixel+2 ] > 0 ) {
+	     h_hats(l,k).real = 0;
+	     h_hats(l,k).imag = 0;	 
+	 }
+      }
+    }
+    redraw(true);
+  
     h_hats = Fourier.unshift(h_hats, dims);
     Fourier.invert(h_hats, h_primes);
  
