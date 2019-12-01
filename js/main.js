@@ -12,25 +12,17 @@ var clickDrag = new Array();
 var paint = false;
 var context;
 
-
 var FourierImageAnalysis = (function() {
-  /**********
-   * config */
   var dims = [-1, -1]; // will be set later
   var cc = 9e-3; // contrast constant
- 
-  /*********************
-   * working variables */
+	
   var canvases;
   var ctxs;
   var h;
   var $h; // h hat
   var h_; // h prime, the reconstructed h values
  
-  /******************
-   * work functions */
   function initFourierImageAnalysis() {
-    // event listeners
     $s('#draw-cs-btn').addEventListener('click', function() {
       loadImage('cs.png');
     });
@@ -394,8 +386,7 @@ function addClick(x, y, dragging)
   clickX.push(x);
   clickY.push(y);
   clickDrag.push(dragging);
-	
-	
+
   if( dragging && clickX.length > 1 ) {
 	  context = document.getElementById('canvas1').getContext("2d");
 	  
