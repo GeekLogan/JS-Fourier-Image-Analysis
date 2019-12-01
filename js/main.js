@@ -324,11 +324,13 @@ var FourierImageAnalysis = (function() {
 
 window.addEventListener('load', FourierImageAnalysis.init);
 
-function redraw(){
+function redraw( draw_background ){
   context = document.getElementById('canvas1').getContext("2d");
   context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
 
-  $('#transform-btn').click();
+  if( draw_background ) {
+  	$('#transform-btn').click();
+  }
   
   context.strokeStyle = "#FF0000";
   context.lineJoin = "round";
@@ -350,20 +352,20 @@ function redraw(){
 function clear_all_drawing() {
 	clickX = new Array();
 	clickY = new Array();
-	redraw();
+	redraw(true);
 }
 
 //DRAWING TOOLS
 // ADAPTED FROM http://www.williammalone.com/articles/create-html5-canvas-javascript-drawing-app/
 $( document ).ready(function() {
     $('#canvas1').mousedown(function(e){
-  var mouseX = e.pageX - this.offsetLeft;
-  var mouseY = e.pageY - this.offsetTop;
-		
-  paint = true;
-  addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, false);
-  //redraw();
-});
+	  var mouseX = e.pageX - this.offsetLeft;
+	  var mouseY = e.pageY - this.offsetTop;
+
+	  paint = true;
+	  addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, false);
+	  //redraw();
+     });
 
 $('#canvas1').mousemove(function(e){
   if(paint){
