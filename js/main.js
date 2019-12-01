@@ -327,8 +327,6 @@ var FourierImageAnalysis = (function() {
 //DRAWING TOOLS
 // ADAPTED FROM http://www.williammalone.com/articles/create-html5-canvas-javascript-drawing-app/
 
-  context = document.getElementById('canvas1').getContext("2d");
-
 $('#canvas1').mousedown(function(e){
   var mouseX = e.pageX - this.offsetLeft;
   var mouseY = e.pageY - this.offsetTop;
@@ -361,6 +359,7 @@ function addClick(x, y, dragging)
 }
 
 function redraw(){
+  context = document.getElementById('canvas1').getContext("2d");
   context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
   
   context.strokeStyle = "#FF0000";
