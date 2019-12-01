@@ -32,10 +32,6 @@ var FourierImageAnalysis = (function() {
       loadImage('circle.png');
     });
 
-//    $s('#draw-grace-btn').addEventListener('click', function() {
-//     loadImage('grace.png');
-//    });
-
     $s('#draw-img-btn').addEventListener('click', function() {
       loadImage($s('#img-url').value);
     });
@@ -93,8 +89,6 @@ var FourierImageAnalysis = (function() {
   }
 
   function loadImage(loc) {
-    var start = +new Date();
- 
     // placed in a callback so the UI has a chance to update
     disableButtons(function() {
       // draw the initial image
@@ -130,13 +124,6 @@ var FourierImageAnalysis = (function() {
           var idx = n*dims[0] + m;
           return h_es[idx];
         }; // make it a function so the code matches the math
- 
-        enableButtons();
- 
-        var duration = +new Date() - start;
-        console.log(
-          'It took ' + duration + 'ms to draw the image.'
-        );
       });
       img.crossOrigin = "anonymous";
       img.src = loc;
@@ -193,11 +180,6 @@ var FourierImageAnalysis = (function() {
       }
     }
     ctxs[1].putImageData(currImageData, 0, 0);
- 
-    enableButtons();
- 
-    var duration = +new Date() - start;
-    console.log('It took '+duration+'ms to compute the FT.');
   }
   
   function reconstructAction() {
@@ -229,13 +211,6 @@ var FourierImageAnalysis = (function() {
       }
     }
     ctxs[2].putImageData(currImageData, 0, 0);
- 
-    enableButtons();
- 
-    var duration = +new Date() - start;
-    console.log(
-      'It took ' + duration + 'ms to reconstruct the image.'
-    );
   }
   
   function differenceAction() {
@@ -268,14 +243,6 @@ var FourierImageAnalysis = (function() {
       }
     }
     ctxs[3].putImageData(currImageData, 0, 0);
- 
-    enableButtons();
- 
-    var duration = +new Date() - start;
-    console.log(
-      'It took ' + duration +
-      'ms to compute the difference.'
-    );
   }
 
   /********************
