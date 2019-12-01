@@ -127,6 +127,10 @@ var FourierImageAnalysis = (function() {
       img.crossOrigin = "anonymous";
       img.src = loc;
     });
+
+	clickX = new Array();
+	clickY = new Array();
+	clickDrag = new Array();
   }
   
   function transformAction() {
