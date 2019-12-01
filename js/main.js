@@ -145,6 +145,7 @@ var FourierImageAnalysis = (function() {
       }
     }
  
+    /*
     // apply a low or high pass filter
     var lowPassRadius = parseInt(
       $s('#low-freq-radius').value
@@ -153,6 +154,7 @@ var FourierImageAnalysis = (function() {
       $s('#high-freq-radius').value
     ); // high pass radius
     Fourier.filter(h_hats, dims, lowPassRadius, highPassRadius);
+    */
  
     // store them in a nice function to match the math
     $h = function(k, l) {
