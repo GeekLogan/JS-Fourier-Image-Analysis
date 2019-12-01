@@ -12,6 +12,60 @@ var clickDrag = new Array();
 var paint = false;
 var context;
 
+function transformAction() {
+    // compute the h hat values
+    var h_hats = [];
+    Fourier.transform(h(), h_hats);
+    h_hats = Fourier.shift(h_hats, dims);
+ 
+    // get the largest magnitude
+    var maxMagnitude = 0;
+    for (var ai = 0; ai < h_hats.length; ai++) {
+      var mag = h_hats[ai].magnitude();
+      if (mag > maxMagnitude) {
+        maxMagnitude = mag;
+      }
+    }
+ 
+    /*
+    // apply a low or high pass filter
+    var lowPassRadius = parseInt(
+      $s('#low-freq-radius').value
+    ); // low pass radius
+    var highPassRadius= parseInt(
+      $s('#high-freq-radius').value
+    ); // high pass radius
+    Fourier.filter(h_hats, dims, lowPassRadius, highPassRadius);
+    */
+ 
+    // store them in a nice function to match the math
+    $h = function(k, l) {
+      if (arguments.length === 0) return h_hats;
+  
+      var idx = k*dims[0] + l;
+      return h_hats[idx];
+    };
+ 
+    // draw the pixels
+    var currImageData = ctxs[1].getImageData(
+      0, 0, dims[0], dims[1]
+    );
+    var logOfMaxMag = Math.log(cc*maxMagnitude+1);
+    for (var k = 0; k < dims[1]; k++) {
+      for (var l = 0; l < dims[0]; l++) {
+        var idxInPixels = 4*(dims[0]*k + l); // range offset
+        currImageData.data[idxInPixels+3] = 255; // full alpha (dont know if this is needed)
+        var color = Math.log(cc*$h(l, k).magnitude()+1);
+        color = Math.round(255*(color/logOfMaxMag));
+        // RGB are the same -> gray
+        for (var c = 0; c < 3; c++) { 
+          currImageData.data[idxInPixels+c] = color;
+        }
+      }
+    }
+    ctxs[1].putImageData(currImageData, 0, 0);
+  }
+
 var FourierImageAnalysis = (function() {
   /**********
    * config */
@@ -136,59 +190,7 @@ var FourierImageAnalysis = (function() {
     });
   }
   
-  function transformAction() {
-    // compute the h hat values
-    var h_hats = [];
-    Fourier.transform(h(), h_hats);
-    h_hats = Fourier.shift(h_hats, dims);
- 
-    // get the largest magnitude
-    var maxMagnitude = 0;
-    for (var ai = 0; ai < h_hats.length; ai++) {
-      var mag = h_hats[ai].magnitude();
-      if (mag > maxMagnitude) {
-        maxMagnitude = mag;
-      }
-    }
- 
-    /*
-    // apply a low or high pass filter
-    var lowPassRadius = parseInt(
-      $s('#low-freq-radius').value
-    ); // low pass radius
-    var highPassRadius= parseInt(
-      $s('#high-freq-radius').value
-    ); // high pass radius
-    Fourier.filter(h_hats, dims, lowPassRadius, highPassRadius);
-    */
- 
-    // store them in a nice function to match the math
-    $h = function(k, l) {
-      if (arguments.length === 0) return h_hats;
   
-      var idx = k*dims[0] + l;
-      return h_hats[idx];
-    };
- 
-    // draw the pixels
-    var currImageData = ctxs[1].getImageData(
-      0, 0, dims[0], dims[1]
-    );
-    var logOfMaxMag = Math.log(cc*maxMagnitude+1);
-    for (var k = 0; k < dims[1]; k++) {
-      for (var l = 0; l < dims[0]; l++) {
-        var idxInPixels = 4*(dims[0]*k + l); // range offset
-        currImageData.data[idxInPixels+3] = 255; // full alpha (dont know if this is needed)
-        var color = Math.log(cc*$h(l, k).magnitude()+1);
-        color = Math.round(255*(color/logOfMaxMag));
-        // RGB are the same -> gray
-        for (var c = 0; c < 3; c++) { 
-          currImageData.data[idxInPixels+c] = color;
-        }
-      }
-    }
-    ctxs[1].putImageData(currImageData, 0, 0);
-  }
   
   function reconstructAction() {
     // compute the h prime values
@@ -335,6 +337,8 @@ function redraw(){
   context = document.getElementById('canvas1').getContext("2d");
   context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
   
+transformAction();
+	
   context.strokeStyle = "#FF0000";
   context.lineJoin = "round";
   context.lineWidth = 5;
