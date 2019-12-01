@@ -323,11 +323,45 @@ var FourierImageAnalysis = (function() {
     if (id.charAt(0) !== '#') return false;
     return document.getElementById(id.substring(1));
   }
- 
+  
+  return {
+    init: initFourierImageAnalysis
+  };
+})();
+
+window.addEventListener('load', FourierImageAnalysis.init);
+
+function redraw(){
+  context = document.getElementById('canvas1').getContext("2d");
+  context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
+  
+  context.strokeStyle = "#FF0000";
+  context.lineJoin = "round";
+  context.lineWidth = 5;
+			
+  for(var i=0; i < clickX.length; i++) {		
+    context.beginPath();
+    if(clickDrag[i] && i){
+      context.moveTo(clickX[i-1], clickY[i-1]);
+     }else{
+       context.moveTo(clickX[i]-1, clickY[i]);
+     }
+     context.lineTo(clickX[i], clickY[i]);
+     context.closePath();
+     context.stroke();
+  }
+}
+
+function clear_all_drawing() {
+	clickX = new Array();
+	clickY = new Array();
+	redraw();
+}
+
 //DRAWING TOOLS
 // ADAPTED FROM http://www.williammalone.com/articles/create-html5-canvas-javascript-drawing-app/
-
-$('#canvas1').mousedown(function(e){
+$( document ).ready(function() {
+    $('#canvas1').mousedown(function(e){
   var mouseX = e.pageX - this.offsetLeft;
   var mouseY = e.pageY - this.offsetTop;
 		
@@ -358,38 +392,4 @@ function addClick(x, y, dragging)
   clickDrag.push(dragging);
 }
 
-function redraw(){
-  context = document.getElementById('canvas1').getContext("2d");
-  context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
-  
-  context.strokeStyle = "#FF0000";
-  context.lineJoin = "round";
-  context.lineWidth = 5;
-			
-  for(var i=0; i < clickX.length; i++) {		
-    context.beginPath();
-    if(clickDrag[i] && i){
-      context.moveTo(clickX[i-1], clickY[i-1]);
-     }else{
-       context.moveTo(clickX[i]-1, clickY[i]);
-     }
-     context.lineTo(clickX[i], clickY[i]);
-     context.closePath();
-     context.stroke();
-  }
-}
-
-function clear_all_drawing() {
-	clickX = new Array();
-	clickY = new Array();
-	redraw();
-}
- 
-// END ADAPTED PORTION
-  
-  return {
-    init: initFourierImageAnalysis
-  };
-})();
-
-window.addEventListener('load', FourierImageAnalysis.init);
+});
