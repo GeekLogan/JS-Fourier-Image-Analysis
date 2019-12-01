@@ -6,6 +6,12 @@
 | @edit 2017/11/11 |
 \******************/
 
+var clickX = new Array();
+var clickY = new Array();
+var clickDrag = new Array();
+var paint = false;
+var context;
+
 var FourierImageAnalysis = (function() {
   /**********
    * config */
@@ -171,12 +177,12 @@ var FourierImageAnalysis = (function() {
     var logOfMaxMag = Math.log(cc*maxMagnitude+1);
     for (var k = 0; k < dims[1]; k++) {
       for (var l = 0; l < dims[0]; l++) {
-        var idxInPixels = 4*(dims[0]*k + l);
-        currImageData.data[idxInPixels+3] = 255; // full alpha
+        var idxInPixels = 4*(dims[0]*k + l); // range offset
+        currImageData.data[idxInPixels+3] = 255; // full alpha (dont know if this is needed)
         var color = Math.log(cc*$h(l, k).magnitude()+1);
         color = Math.round(255*(color/logOfMaxMag));
         // RGB are the same -> gray
-        for (var c = 0; c < 3; c++) { // lol c++
+        for (var c = 0; c < 3; c++) { 
           currImageData.data[idxInPixels+c] = color;
         }
       }
@@ -317,6 +323,70 @@ var FourierImageAnalysis = (function() {
     if (id.charAt(0) !== '#') return false;
     return document.getElementById(id.substring(1));
   }
+ 
+//DRAWING TOOLS
+// ADAPTED FROM http://www.williammalone.com/articles/create-html5-canvas-javascript-drawing-app/
+
+  context = document.getElementById('canvas1').getContext("2d");
+
+$('#canvas1').mousedown(function(e){
+  var mouseX = e.pageX - this.offsetLeft;
+  var mouseY = e.pageY - this.offsetTop;
+		
+  paint = true;
+  addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
+  redraw();
+});
+
+$('#canvas1').mousemove(function(e){
+  if(paint){
+    addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
+    redraw();
+  }
+});
+
+$('#canvas1').mouseup(function(e){
+  paint = false;
+});
+
+$('#canvas1').mouseleave(function(e){
+  paint = false;
+});
+
+function addClick(x, y, dragging)
+{
+  clickX.push(x);
+  clickY.push(y);
+  clickDrag.push(dragging);
+}
+
+function redraw(){
+  context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
+  
+  context.strokeStyle = "#FF0000";
+  context.lineJoin = "round";
+  context.lineWidth = 5;
+			
+  for(var i=0; i < clickX.length; i++) {		
+    context.beginPath();
+    if(clickDrag[i] && i){
+      context.moveTo(clickX[i-1], clickY[i-1]);
+     }else{
+       context.moveTo(clickX[i]-1, clickY[i]);
+     }
+     context.lineTo(clickX[i], clickY[i]);
+     context.closePath();
+     context.stroke();
+  }
+}
+
+function clear_all_drawing() {
+	clickX = new Array();
+	clickY = new Array();
+	redraw();
+}
+ 
+// END ADAPTED PORTION
   
   return {
     init: initFourierImageAnalysis
