@@ -369,14 +369,15 @@ $( document ).ready(function() {
   var mouseY = e.pageY - this.offsetTop;
 		
   paint = true;
-  addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
-  redraw();
+  addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, false);
+  //redraw();
 });
 
 $('#canvas1').mousemove(function(e){
   if(paint){
     addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
-    redraw();
+	  
+    //redraw();
   }
 });
 
@@ -393,6 +394,21 @@ function addClick(x, y, dragging)
   clickX.push(x);
   clickY.push(y);
   clickDrag.push(dragging);
+	
+	
+  if( dragging && clickX.length > 1 ) {
+	  context = document.getElementById('canvas1').getContext("2d");
+	  
+	  context.strokeStyle = "#FF0000";
+  	  context.lineJoin = "round";
+          context.lineWidth = 5;
+	  
+	  context.beginPath();
+	  context.moveTo(clickX[clickX.length-1-1], clickY[clickX.length-1-1]);
+	  context.lineTo(clickX[i], clickY[i]);
+          context.closePath();
+          context.stroke();
+  }
 }
 
 });
