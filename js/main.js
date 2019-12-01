@@ -193,7 +193,7 @@ var FourierImageAnalysis = (function() {
     for (var k = 0; k < dims[1]; k++) {
       for (var l = 0; l < dims[0]; l++) {
 	 var idxInPixels = 4*(dims[0]*k + l); // range offset
-	 if( currImageData[idxInPixel+2 ] > 0 ) {
+	 if( currImageData[idxInPixels+2 ] > 0 ) {
 	     h_hats(l,k).real = 0;
 	     h_hats(l,k).imag = 0;	 
 	 }
