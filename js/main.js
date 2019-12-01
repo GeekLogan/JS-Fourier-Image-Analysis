@@ -12,6 +12,7 @@ var clickDrag = new Array();
 var paint = false;
 var context;
 
+
 var FourierImageAnalysis = (function() {
   /**********
    * config */
@@ -334,6 +335,8 @@ window.addEventListener('load', FourierImageAnalysis.init);
 function redraw(){
   context = document.getElementById('canvas1').getContext("2d");
   context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
+
+  $('#transform-btn').click();
   
   context.strokeStyle = "#FF0000";
   context.lineJoin = "round";
