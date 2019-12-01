@@ -188,15 +188,15 @@ var FourierImageAnalysis = (function() {
     var h_primes = [];
     var h_hats = $h();
 	  
-    redraw(false);
+redraw(false);
     var currImageData = ctxs[1].getImageData( 0, 0, dims[0], dims[1] );
     for (var k = 0; k < dims[1]; k++) {
       for (var l = 0; l < dims[0]; l++) {
 	 var idxInPixels = 4*(dims[0]*k + l); // range offset
-	 if( currImageData[idxInPixels+2 ] > 0 ) {
-	     h_hats(l,k).real = 0;
-	     h_hats(l,k).imag = 0;	 
-	 }
+	 if( currImageData.data[idxInPixels] > 0 ) {
+	     h_hats[idxInPixels/4].real = 0;
+	     h_hats[idxInPixels/4].imag = 0;	 
+	 	}
       }
     }
     redraw(true);
