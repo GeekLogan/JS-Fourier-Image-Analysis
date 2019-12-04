@@ -30,6 +30,10 @@ var FourierImageAnalysis = (function() {
     $s('#draw-circle-btn').addEventListener('click', function() {
       loadImage('circle.png');
     });
+	 
+     $s('#draw-google-btn').addEventListener('click', function() {
+      loadImage('google.png');
+    });
 
     $s('#draw-img-btn').addEventListener('click', function() {
       loadImage($s('#img-url').value);
