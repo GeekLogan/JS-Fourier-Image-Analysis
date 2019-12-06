@@ -9,7 +9,55 @@
         <script src="js/main.js"></script>
     </head>
     <body>
-        <!--<h1>Image Fourier Transform</h1>-->
+       <h1><i>Fun with Fourier</i></h1>
+        
+        <div style="display:block; width:650px;">
+            <p>
+            There are hundreds of modern technologies, from the compression that is
+            used to store digital images from your phone to the generation of musical
+            notes in a digital piano, that make use of <i>Fourier transformations</i>.
+            But, what is a Fourier transformation? Put simply, the Fourier transform is
+            a series of mathematical procedures which allow you to take any signal and
+            discover <i>what underlying frequencies it is made of</i>. This is well 
+            demonstrated by an animation from Lucas V. Barbosa (available, Creative Commons):
+            </p>
+            
+            <img src="ft.gif" width="300" style="margin-left:150px;" />
+            
+            <p>
+            Essentially, understanding what frequencies need to be added together to form
+            a given wave (in red in the above animation) allows the creation of a
+            <i>frequency space</i> (in blue in the above animation). By performing
+            changes to a signal in frequency space, it is possible to do things such
+            as removing only frequencies which are high or low. This is easier to think
+            about with sound: have you ever listened to music on a bad pair of headphones
+            and noticed that there is no bass? This is the result of an operation known as
+            a <i>high pass filter</i>, where (in this case unintentionally) all of the
+            low-frequency portions of the signal have been removed, leaving only the high-frequency
+            signals. This same type of understanding can be extended to images, 
+            however, it can be hard to visualize due to the signals no longer being nice 1-dimensional
+            lines. In this demo, we will: A) produce 2D fourier transforms from images; and B)
+            show how these fourier transforms can be manipulated.
+            </p>
+                
+            <h3><i>The Demo</i></h3>
+            
+            <p>
+            The demo at the bottom of this page is a simulation of a very simple experiment,
+            which is diagrammed below:
+            </i>
+            
+            <img src="ft_schematic.svg" width="600" style="margin-left:25px;" />
+        
+            <p>
+            
+            </p>
+        </div>
+    
+     <br>
+        <hr>
+    
+    <!--<h1>Image Fourier Transform</h1>-->
 
         <div>
             <div style="display: inline-block; margin-right: 22px; vertical-align: top">
@@ -46,49 +94,6 @@
                 <canvas id="canvas3"></canvas><br>
                 <!--<input type="button" id="difference-btn" value="See difference">-->
             </div>
-        </div>
-        
-        <br>
-        <hr>
-        
-        <h1><i>Fun with Fourier</i></h1>
-        
-        <div style="display:block; width:650px;">
-            <p>
-            There are hundreds of modern technologies, from the compression that is
-            used to store digital images from your phone to the generation of musical
-            notes in a digital piano, that make use of <i>Fourier transformations</i>.
-            But, what is a Fourier transformation? Put simply, the Fourier transform is
-            a series of mathematical procedures which allow you to take any signal and
-            discover <i>what underlying frequencies it is made of</i>. This is well 
-            demonstrated by an animation from Lucas V. Barbosa (available, Creative Commons):
-            </p>
-            
-            <img src="ft.gif" width="300" style="margin-left:150px;" />
-            
-            <p>
-            Essentially, understanding what frequencies need to be added together to form
-            a given wave (in red in the above animation) allows the creation of a
-            <i>frequency space</i> (in blue in the above animation). By performing
-            changes to a signal in frequency space, it is possible to do things such
-            as removing only frequencies which are high or low. This is easier to think
-            about with sound: have you ever listened to music on a bad pair of headphones
-            and noticed that there is no bass? This is the result of an operation known as
-            a <i>high pass filter</i>, where (in this case unintentionally) all of the
-            low-frequency portions of the signal have been removed, leaving only the high-frequency
-            signals. This same type of understanding can be extended to images, 
-            however, it can be hard to visualize due to the signals no longer being nice 1-dimensional
-            lines. In this demo, we will: A) produce 2D fourier transforms from images; and B)
-            show how these fourier transforms can be manipulated.
-            </p>
-                
-            <h3><i>The Demo</i></h3>
-            
-            <p>
-            The demo at the top of this page is a 
-            </i>
-            
-            <img src="ft_schematic.svg" width="600" style="margin-left:25px;" />
         </div>
 
     </body>
