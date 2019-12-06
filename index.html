@@ -52,17 +52,31 @@
             <img src="ft_schematic.svg" width="600" style="margin-left:25px;" />
         
             <p>
-            It is constructed from three main parts:
+            It is constructed from four main parts:
             <ol>
+				<li>
+					A laser and spatial filter are used to to produce a
+                    uniform light source by blocking light which is not a
+                    uniform spatial frequency.
+				</li>
+                <li>
+                    A lens is used to recolumnate the laser and an object you
+                    want to take a picture of is
+                    placed at the <i>object plane</i>.
+                </li>
+                <li>
+                    
+                </li>
+                <li>
+                    Finally, the recombined image is captured on a camera
+                    (on the right of the diagram).
+                </li>
             </ol>
             </p>
         </div>
     
      <br>
         <hr>
-    
-    <!--<h1>Image Fourier Transform</h1>-->
-
         <div>
             <div style="display: inline-block; margin-right: 22px; vertical-align: top">
                 1. Original image
@@ -96,13 +110,10 @@
                 4. Difference image
                 <br>
                 <canvas id="canvas3"></canvas><br>
-                <!--<input type="button" id="difference-btn" value="See difference">-->
             </div>
         </div>
     
     <br>
     <p>This is based on a JavaScript Fourier transform implementation avaiable <a href="https://github.com/turbomaze/JS-Fourier-Image-Analysis">here</a>.</p>
-.
-
     </body>
 </html>
